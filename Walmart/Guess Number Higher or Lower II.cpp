@@ -1,0 +1,31 @@
+class Solution {
+
+public:
+    long long solve( int start, int end ,vector<vector<int>> &dp){
+
+    if( start >= end )
+        return 0;
+    
+    if( dp[start][end] != -1 )
+        return dp[start][end];
+    
+    long long ans = INT_MAX;
+    
+    for( int i = start ; i <= end; i++ ){
+        
+        long long temp = max(solve( start , i-1 , dp) ,solve( i+1, end,dp ) ) + i;
+        
+        ans = min( ans , temp ); 
+    }
+    
+    return dp[start][end] = ans;
+}
+
+int getMoneyAmount(int n) {
+    
+    vector<vector<int>> dp( n+1 , vector< int >( n+1 , -1 ) );
+    
+    return solve( 1, n ,dp);
+    
+}
+};
